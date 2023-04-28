@@ -3,6 +3,7 @@
 
 # importing OpenCV, time and Pandas library
 import cv2, time, pandas
+import csv
 # importing datetime class from datetime library
 from datetime import datetime
 
@@ -17,7 +18,9 @@ time = []
 
 # Initializing DataFrame, one column is start
 # time and other column is end time
-df = pandas.DataFrame(columns = ["Start", "End"])
+
+#df = pandas.DataFrame(columns = ["Start", "End"])
+d1=[]
 
 # Capturing video
 video = cv2.VideoCapture(0)
@@ -98,15 +101,37 @@ while True:
 		# if something is movingthen it append the end time of movement
 		if motion == 1:
 			time.append(datetime.now())
+			
 		break
 
 # Appending time of motion in DataFrame
-for i in range(0, len(time), 2):
-	df = df.append({"Start":time[i], "End":time[i + 1]}, ignore_index = True)
+"""for i in range(0, len(time), 2):
+	df = df.append({"Start":time[i], "End":time[i + 1]}, ignore_index = True)"""
+print()
+print(time)
+
+
 
 # Creating a CSV file in which time of movements will be saved
-df.to_csv("Time_of_movements.csv")
+print(d1)
+f1=open('C:/Users/mitul/Desktop/HACKATHON/Time_of_movements.csv','w')
+# create the csv writer
+writer = csv.writer(f1)
 
+# write a row to the csv file
+writer.writerow(time)
+
+# close the file
+f1.close()
+
+'''
+for i in d1:
+    s=str(i)
+    f1.write(s)
+    f1.write(" ")
+
+f1.close()
+'''
 video.release()
 
 # Destroying all the windows
