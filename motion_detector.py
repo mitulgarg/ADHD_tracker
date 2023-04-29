@@ -3,8 +3,24 @@
 
 # importing OpenCV, time and Pandas library
 import cv2, time, pandas
+import csv
 # importing datetime class from datetime library
 from datetime import datetime
+
+from tkinter import * 
+from tkinter import messagebox
+
+
+def tkinter():
+        root = Tk()
+        root.geometry("300x200")
+        w = Label(root, text ='GET TO WORK! FOCUS!!', font = "80") 
+        w.pack()
+        messagebox.showinfo("Continue", "Ready to focus")
+        root.mainloop()
+  
+
+
 
 # Assigning our static_back to None
 static_back = None
@@ -17,7 +33,9 @@ time = []
 
 # Initializing DataFrame, one column is start
 # time and other column is end time
-df = pandas.DataFrame(columns = ["Start", "End"])
+
+#df = pandas.DataFrame(columns = ["Start", "End"])
+d1=[]
 
 # Capturing video
 video = cv2.VideoCapture(0)
@@ -34,7 +52,7 @@ while True:
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 	# Converting gray scale image to GaussianBlur
-	# so that change can be find easily
+	# so that change can be found easily
 	gray = cv2.GaussianBlur(gray, (21, 21), 0)
 
 	# In first iteration we assign the value
@@ -57,10 +75,11 @@ while True:
 					cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 	for contour in cnts:
-		if cv2.contourArea(contour) < 10000:
+		if cv2.contourArea(contour) < 110000:
 			continue
 		motion = 1
-
+		tkinter()
+		
 		(x, y, w, h) = cv2.boundingRect(contour)
 		# making green rectangle around the moving object
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
@@ -73,6 +92,7 @@ while True:
 	# Appending Start time of motion
 	if motion_list[-1] == 1 and motion_list[-2] == 0:
 		time.append(datetime.now())
+
 
 	# Appending End time of motion
 	if motion_list[-1] == 0 and motion_list[-2] == 1:
@@ -98,15 +118,36 @@ while True:
 		# if something is movingthen it append the end time of movement
 		if motion == 1:
 			time.append(datetime.now())
+			
 		break
 
 # Appending time of motion in DataFrame
-for i in range(0, len(time), 2):
-	df = df.append({"Start":time[i], "End":time[i + 1]}, ignore_index = True)
+"""for i in range(0, len(time), 2):
+	df = df.append({"Start":time[i], "End":time[i + 1]}, ignore_index = True)"""
+print()
+print(time)
+
 
 # Creating a CSV file in which time of movements will be saved
-df.to_csv("Time_of_movements.csv")
+print(d1)
+f1=open('Time_ofmovements.csv','w')
+# create the csv writer
+writer = csv.writer(f1)
 
+# write a row to the csv file
+writer.writerow(time)
+
+# close the file
+f1.close()
+
+'''
+for i in d1:
+    s=str(i)
+    f1.write(s)
+    f1.write(" ")
+
+f1.close()
+'''
 video.release()
 
 # Destroying all the windows
