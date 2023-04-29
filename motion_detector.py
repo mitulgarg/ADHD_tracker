@@ -17,9 +17,9 @@ from tkinter import messagebox
 def tkinter():
         root = Tk()
         root.geometry("300x200")
-        w = Label(root, text ='GET TO WORK! FOCUS!!', font = "80") 
+        w = Label(root, text ='', font = "80") 
         w.pack()
-        messagebox.showinfo("Continue", "Ready to focus")
+        messagebox.showinfo("Continue", "GET TO WORK! FOCUS!!")
         root.mainloop()
   
 
@@ -84,6 +84,7 @@ while True:
 		motion = 1
 		#tkinter()
 		
+		
 		(x, y, w, h) = cv2.boundingRect(contour)
 		# making green rectangle around the moving object
 		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
@@ -96,12 +97,13 @@ while True:
 	# Appending Start time of motion
 	if motion_list[-1] == 1 and motion_list[-2] == 0:
 		time.append(datetime.now())
-
+		print('BREATHE! CALM DOWN!')
+                
 
 	# Appending End time of motion
-	if motion_list[-1] == 0 and motion_list[-2] == 1:
+	elif motion_list[-1] == 0 and motion_list[-2] == 1:
 		time.append(datetime.now())
-
+                
 	# Displaying image in gray_scale
 	cv2.imshow("Gray Frame", gray)
 
@@ -122,7 +124,7 @@ while True:
 		# if something is movingthen it append the end time of movement
 		if motion == 1:
 			time.append(datetime.now())
-			
+	
 		break
 
 # Appending time of motion in DataFrame
