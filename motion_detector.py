@@ -1,6 +1,9 @@
 # Python program to implement
 # Webcam Motion Detector
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 # importing OpenCV, time and Pandas library
 import cv2, time, pandas
 import csv
@@ -30,7 +33,7 @@ motion_list = [ None, None ]
 
 # Time of movement
 time = []
-
+l2=[]
 # Initializing DataFrame, one column is start
 # time and other column is end time
 
@@ -77,8 +80,9 @@ while True:
 	for contour in cnts:
 		if cv2.contourArea(contour) < 110000:
 			continue
+		l2.append(contour)
 		motion = 1
-		tkinter()
+		#tkinter()
 		
 		(x, y, w, h) = cv2.boundingRect(contour)
 		# making green rectangle around the moving object
@@ -130,6 +134,8 @@ print(time)
 
 # Creating a CSV file in which time of movements will be saved
 print(d1)
+
+
 f1=open('Time_ofmovements.csv','w')
 # create the csv writer
 writer = csv.writer(f1)
@@ -139,6 +145,45 @@ writer.writerow(time)
 
 # close the file
 f1.close()
+
+
+plt.rcParams["figure.figsize"] = [7.50, 3.50]
+plt.rcParams["figure.autolayout"] = True
+
+x = np.array(time)
+z=len(x)
+l=[]
+for i in range(0,z):
+        l.append(i)
+
+
+
+plt.title("Analysis graph")
+plt.xlabel('Time of Movements')
+plt.ylabel('Number')
+plt.scatter(x, l, color="red")
+
+
+
+
+# add axes labels
+
+plt.show()
+
+'''
+#second graph
+plt.title("Movement threshold graph")
+plt.plot(x, l2, color="red")
+
+# add axes labels
+plt.xlabel('Time of Movements')
+plt.ylabel('Threshold')
+
+
+
+
+
+'''
 
 '''
 for i in d1:
