@@ -1,7 +1,7 @@
 # ADHD_tracker
 
 This is a program made for students with Attention Deficit Hyperactivity Disorder or ADHD
-The OpenCV module accesses the front camera and detects movement.
+The OpenCV module accesses the front camera and detects excessive physical movement, thus showing lack of sitting and paying attention while doing a particular task.
 The timestamps of movement are recorded and updated in an excel database 'Time_of_movements.csv' .
 This data is finally plotted and used for knowledge purposes, to know when and at which points and how often 
 was the ADHD student paying attention while doing his work and not moving around.
