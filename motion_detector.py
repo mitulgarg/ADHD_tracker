@@ -135,7 +135,7 @@ print(time)
 # Creating a CSV file in which time of movements will be saved
 print(d1)
 
-
+# csv file generated
 f1=open('Time_ofmovements.csv','w')
 # create the csv writer
 writer = csv.writer(f1)
