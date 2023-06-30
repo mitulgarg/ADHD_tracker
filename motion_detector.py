@@ -195,5 +195,5 @@ f1.close()
 '''
 video.release()
 
-# Destroying all the windows
+# Destroying  the windows
 cv2.destroyAllWindows()
