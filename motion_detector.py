@@ -168,7 +168,7 @@ plt.scatter(x, l, color="red")
 
 # add axes labels
 
-plt.show()
+plt.show() #displays the plot
 
 '''
 #second graph
